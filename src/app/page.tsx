@@ -25,6 +25,14 @@ export default function Home() {
     const fetchItems = async () => {
       const fetchedItems = await getItems();
       setItems(fetchedItems);
+
+      // Assign unique IDs and costs to items
+      const itemsWithIdsAndCosts = fetchedItems.map((item, index) => ({
+        ...item,
+        id: `item-${index}`, // Assign a unique ID
+        cost: getItemCost(item.name), // Assign a cost based on item name
+      }));
+      setItems(itemsWithIdsAndCosts);
     };
 
     fetchItems();
@@ -95,6 +103,65 @@ export default function Home() {
     return acc;
   }, 0);
 
+  const getItemCost = (itemName: string): number => {
+    const itemCosts: { [key: string]: number } = {
+      "Bubble gum pack": 1,
+      "Cup of coffee": 3,
+      "Doughnut": 2,
+      "Socks (pair)": 5,
+      "Avocado toast": 12,
+      "Uber ride (short trip)": 15,
+      "Bouquet of flowers": 25,
+      "Yoga mat": 35,
+      "Blender": 60,
+      "Board game": 40,
+      "iPhone 15 Pro": 1000,
+      "1 Month Rent (studio apt)": 2000,
+      "High-end headphones": 300,
+      "Spa day": 500,
+      "New suit": 800,
+      "Flight to NYC": 400,
+      "DSLR Camera": 1500,
+      "Michelin Star dinner": 1000,
+      "Rolex watch": 20000,
+      "Tesla Model 3": 40000,
+      "Diamond ring": 15000,
+      "Fully decked gaming PC": 8000,
+      "Tiny house": 75000,
+      "Private chef (1 year)": 120000,
+      "Yacht charter (1 week)": 200000,
+      "Super Bowl ad (30s spot)": 250000,
+      "Lamborghini Aventador": 500000,
+      "House in Malibu": 5000000,
+      "Private jet": 9000000,
+      "Own a vineyard": 2500000,
+      "Music festival headliner slot": 750000,
+      "Billboard in Times Square": 1000000,
+      "Gold-plated toilet": 1200000,
+      "Ice hotel (build your own)": 8000000,
+      "Falcon 9 Rocket Launch (SpaceX)": 67000000,
+      "Buy an NBA team (partial stake)": 250000000,
+      "Build a private island resort": 400000000,
+      "Mars Rover mission": 2000000000,
+      "Twitter (or “X”) rebrand campaign": 44000000000,
+      "Space station module": 1000000000,
+      "U.S. presidential campaign funding": 500000000,
+      "Save the rainforest (1% global land)": 1300000000,
+      "Rename a star after yourself": 25,
+      "Meme NFT": 1000,
+      "Buy Twitter Blue": 8,
+      "Hire a llama for a day": 500,
+      "Immortalize yourself as a statue": 300000,
+      "Rent a blimp saying “I’m rich!”": 150000,
+      "Coffee": 5,
+      "Tesla": 40000,
+      "Gold Bar": 20000,
+      "Private Island": 400000000,
+      "Space Shuttle": 67000000
+    };
+    return itemCosts[itemName] || 0;
+  };
+
   return (
     <div className="container mx-auto p-4 flex flex-col md:flex-row gap-4">
       {/* Item Catalog and Purchase Section */}
@@ -112,7 +179,9 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="flex flex-col items-center">
                   <img src={item.imageUrl} alt={item.name} className="w-32 h-32 object-cover rounded-md mb-2"/>
-                  <p className="text-sm text-muted-foreground">${item.cost.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {typeof item.cost === 'number' ? `$${item.cost.toLocaleString()}` : 'Cost not available'}
+                  </p>
                   <div className="flex items-center justify-center gap-2 mt-2">
                     <Button onClick={() => removeItem(item)} variant="secondary">
                       <Icons.minus className="h-4 w-4"/>
@@ -130,7 +199,7 @@ export default function Home() {
       </div>
 
       {/* Spending Overview and AI Suggestions Section */}
-      <div className="w-full md:w-1/3" style={{position: 'sticky', top: '1rem', height: '100vh'}}>
+      <div className="w-full md:w-1/3" style={{ position: 'sticky', top: '1rem', height: '100vh' }}>
         <Card className="shadow-md mb-4">
           <CardHeader>
             <CardTitle>Balance</CardTitle>
