@@ -7,6 +7,7 @@ import {Button} from '@/components/ui/button';
 import {Separator} from '@/components/ui/separator';
 import {suggestPurchases, SuggestPurchasesOutput} from '@/ai/flows/suggest-purchases';
 import {useToast} from '@/hooks/use-toast';
+import {Icons} from '@/components/icons';
 
 const INITIAL_BALANCE = 300000000000; // $300 Billion
 
@@ -55,6 +56,7 @@ export default function Home() {
         title: 'Purchase Successful',
         description: `You have purchased ${item.name} for $${item.cost.toLocaleString()}.`,
       });
+      updateSuggestions();
     } else {
       toast({
         title: 'Insufficient Balance',
@@ -62,6 +64,38 @@ export default function Home() {
         variant: 'destructive',
       });
     }
+  };
+
+  const removeItem = (item: Item) => {
+    const existingItemIndex = purchasedItems.findIndex((purchasedItem) => purchasedItem.itemId === item.id);
+
+    if (existingItemIndex > -1) {
+      const newPurchasedItems = [...purchasedItems];
+      if (newPurchasedItems[existingItemIndex].quantity > 1) {
+        newPurchasedItems[existingItemIndex].quantity -= 1;
+        setPurchasedItems(newPurchasedItems);
+        setBalance(balance + item.cost);
+      } else {
+        setPurchasedItems(purchasedItems.filter((purchasedItem) => purchasedItem.itemId !== item.id));
+        setBalance(balance + item.cost);
+      }
+      toast({
+        title: 'Item Removed',
+        description: `You have removed ${item.name} for $${item.cost.toLocaleString()}.`,
+      });
+      updateSuggestions();
+    } else {
+      toast({
+        title: 'No Item Found',
+        description: 'You have not purchased this item yet.',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const getItemQuantity = (itemId: string): number => {
+    const purchasedItem = purchasedItems.find((item) => item.itemId === itemId);
+    return purchasedItem ? purchasedItem.quantity : 0;
   };
 
   const updateSuggestions = async () => {
@@ -102,9 +136,15 @@ export default function Home() {
                 <CardContent className="flex flex-col items-center">
                   <img src={item.imageUrl} alt={item.name} className="w-32 h-32 object-cover rounded-md mb-2"/>
                   <p className="text-sm text-muted-foreground">${item.cost.toLocaleString()}</p>
-                  <Button onClick={() => purchaseItem(item)} className="mt-2 w-full bg-accent text-foreground hover:bg-accent-foreground hover:text-background transition-colors duration-300">
-                    Purchase
-                  </Button>
+                  <div className="flex items-center justify-center gap-2 mt-2">
+                    <Button onClick={() => removeItem(item)} variant="secondary">
+                      <Icons.minus className="h-4 w-4"/>
+                    </Button>
+                    <span>{getItemQuantity(item.id)}</span>
+                    <Button onClick={() => purchaseItem(item)} className="bg-accent text-foreground hover:bg-accent-foreground hover:text-background transition-colors duration-300">
+                      <Icons.plus className="h-4 w-4"/>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
