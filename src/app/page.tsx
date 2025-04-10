@@ -130,7 +130,7 @@ export default function Home() {
       </div>
 
       {/* Spending Overview and AI Suggestions Section */}
-      <div className="fixed top-4 w-full md:w-1/3 flex flex-col gap-4 ">
+      <div className="w-1/3 fixed top-4 right-4 flex flex-col gap-4">
         <Card className="shadow-md">
           <CardHeader>
             <CardTitle>Balance</CardTitle>
