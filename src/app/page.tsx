@@ -8,7 +8,7 @@ import {Separator} from '@/components/ui/separator';
 import {suggestPurchases, SuggestPurchasesOutput} from '@/ai/flows/suggest-purchases';
 import {useToast} from '@/hooks/use-toast';
 
-const INITIAL_BALANCE = 100000000000; // $100 Billion
+const INITIAL_BALANCE = 300000000000; // $300 Billion
 
 interface PurchasedItem {
   itemId: string;
@@ -179,3 +179,4 @@ export default function Home() {
     </div>
   );
 }
+
