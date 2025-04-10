@@ -130,8 +130,8 @@ export default function Home() {
       </div>
 
       {/* Spending Overview and AI Suggestions Section */}
-      <div className="w-1/3 sticky top-4 right-4 flex flex-col gap-4">
-        <Card className="shadow-md">
+      <div className="w-full md:w-1/3" style={{position: 'sticky', top: '1rem', height: '100vh'}}>
+        <Card className="shadow-md mb-4">
           <CardHeader>
             <CardTitle>Balance</CardTitle>
             <CardDescription>Your remaining fortune</CardDescription>
