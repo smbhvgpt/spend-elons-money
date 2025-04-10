@@ -153,7 +153,7 @@ export default function Home() {
       </div>
 
       {/* Spending Overview and AI Suggestions Section */}
-      <div className="w-full md:w-1/3 flex flex-col gap-4">
+      <div className="w-full md:w-1/3 flex flex-col gap-4 sticky top-4">
         <Card className="shadow-md">
           <CardHeader>
             <CardTitle>Balance</CardTitle>
@@ -219,4 +219,3 @@ export default function Home() {
     </div>
   );
 }
-
