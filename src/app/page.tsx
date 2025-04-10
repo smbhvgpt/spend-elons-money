@@ -130,7 +130,7 @@ export default function Home() {
       </div>
 
       {/* Spending Overview and AI Suggestions Section */}
-      <div className="w-1/3 fixed top-4 right-4 flex flex-col gap-4">
+      <div className="w-1/3 sticky top-4 right-4 flex flex-col gap-4">
         <Card className="shadow-md">
           <CardHeader>
             <CardTitle>Balance</CardTitle>
@@ -146,7 +146,7 @@ export default function Home() {
             <CardTitle>Spending Overview</CardTitle>
             <CardDescription>Items you've purchased</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="max-h-[400px] overflow-y-auto">
             {purchasedItems.length > 0 ? (
               <ul className="list-none p-0">
                 {purchasedItems.map((purchasedItem) => {
