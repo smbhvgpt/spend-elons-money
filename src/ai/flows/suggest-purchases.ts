@@ -86,4 +86,3 @@ const suggestPurchasesFlow = ai.defineFlow<
   const {output} = await prompt(input);
   return output!;
 });
-

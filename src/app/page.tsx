@@ -5,7 +5,6 @@ import {Item, getItems} from '@/services/item-service';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {Separator} from '@/components/ui/separator';
-import {suggestPurchases, SuggestPurchasesOutput} from '@/ai/flows/suggest-purchases';
 import {useToast} from '@/hooks/use-toast';
 import {Icons} from '@/components/icons';
 
@@ -20,7 +19,6 @@ export default function Home() {
   const [balance, setBalance] = useState(INITIAL_BALANCE);
   const [items, setItems] = useState<Item[]>([]);
   const [purchasedItems, setPurchasedItems] = useState<PurchasedItem[]>([]);
-  const [aiSuggestions, setAiSuggestions] = useState<SuggestPurchasesOutput | null>(null);
   const {toast} = useToast();
 
   useEffect(() => {
@@ -31,13 +29,6 @@ export default function Home() {
 
     fetchItems();
   }, []);
-
-  useEffect(() => {
-    if (items.length > 0) {
-      updateSuggestions();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [balance, items, purchasedItems]);
 
   const purchaseItem = (item: Item) => {
     if (balance >= item.cost) {
@@ -56,7 +47,6 @@ export default function Home() {
         title: 'Purchase Successful',
         description: `You have purchased ${item.name} for $${item.cost.toLocaleString()}.`,
       });
-      updateSuggestions();
     } else {
       toast({
         title: 'Insufficient Balance',
@@ -83,7 +73,6 @@ export default function Home() {
         title: 'Item Removed',
         description: `You have removed ${item.name} for $${item.cost.toLocaleString()}.`,
       });
-      updateSuggestions();
     } else {
       toast({
         title: 'No Item Found',
@@ -96,18 +85,6 @@ export default function Home() {
   const getItemQuantity = (itemId: string): number => {
     const purchasedItem = purchasedItems.find((item) => item.itemId === itemId);
     return purchasedItem ? purchasedItem.quantity : 0;
-  };
-
-  const updateSuggestions = async () => {
-    if (items.length === 0) {
-      return;
-    }
-    const suggestions = await suggestPurchases({
-      balance: balance,
-      purchasedItems: purchasedItems,
-      availableItems: items,
-    });
-    setAiSuggestions(suggestions);
   };
 
   const totalSpent = purchasedItems.reduce((acc, purchasedItem) => {
@@ -188,31 +165,6 @@ export default function Home() {
             )}
             <Separator className="my-2"/>
             <p className="font-semibold">Total Spent: ${totalSpent.toLocaleString()}</p>
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-md">
-          <CardHeader>
-            <CardTitle>AI Purchase Suggestions</CardTitle>
-            <CardDescription>Let AI guide your spending!</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {aiSuggestions?.suggestions.length ? (
-              <ul className="list-none p-0">
-                {aiSuggestions.suggestions.map((suggestion) => {
-                  const item = items.find((item) => item.id === suggestion.itemId);
-                  return (
-                    item && (
-                      <li key={suggestion.itemId} className="py-2">
-                        {item.name}: {suggestion.reason}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-            ) : (
-              <p className="text-muted-foreground">AI is thinking...</p>
-            )}
           </CardContent>
         </Card>
       </div>
