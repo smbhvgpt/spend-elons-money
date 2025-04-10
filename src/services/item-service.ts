@@ -33,7 +33,7 @@ export async function getItems(): Promise<Item[]> {
     {id: '1', name: 'Bubble gum pack', imageUrl: 'https://picsum.photos/id/300/200/300', cost: 1},
     {id: '2', name: 'Cup of coffee', imageUrl: 'https://picsum.photos/id/301/200/300', cost: 3},
     {id: '3', name: 'Doughnut', imageUrl: 'https://picsum.photos/id/302/200/300', cost: 2},
-    {id: '4', name: 'Socks (pair)', imageUrl: 'https://picsum.photos/id/303/200/300', cost: 5},
+    {id: '4', name: 'Socks (pair)', imageUrl: 'https://picsum.photos/id/350/200/300', cost: 5},
     {id: '5', name: 'Avocado toast', imageUrl: 'https://picsum.photos/id/304/200/300', cost: 12},
     {id: '6', name: 'Uber ride (short trip)', imageUrl: 'https://picsum.photos/id/305/200/300', cost: 15},
     {id: '7', name: 'Bouquet of flowers', imageUrl: 'https://picsum.photos/id/306/200/300', cost: 25},
@@ -62,8 +62,8 @@ export async function getItems(): Promise<Item[]> {
     {id: '30', name: 'Own a vineyard', imageUrl: 'https://picsum.photos/id/329/200/300', cost: 2500000},
     {id: '31', name: 'Music festival headliner slot', imageUrl: 'https://picsum.photos/id/330/200/300', cost: 750000},
     {id: '32', name: 'Billboard in Times Square', imageUrl: 'https://picsum.photos/id/331/200/300', cost: 1000000},
-    {id: '33', name: 'Gold-plated toilet', imageUrl: 'https://picsum.photos/id/332/200/300', cost: 1200000},
-    {id: '34', name: 'Ice hotel (build your own)', imageUrl: 'https://picsum.photos/id/333/200/300', cost: 8000000},
+    {id: '33', name: 'Gold-plated toilet', imageUrl: 'https://picsum.photos/id/351/200/300', cost: 1200000},
+    {id: '34', name: 'Ice hotel (build your own)', imageUrl: 'https://picsum.photos/id/352/200/300', cost: 8000000},
     {id: '35', name: 'Falcon 9 Rocket Launch (SpaceX)', imageUrl: 'https://picsum.photos/id/334/200/300', cost: 67000000},
     {id: '36', name: 'Buy an NBA team (partial stake)', imageUrl: 'https://picsum.photos/id/335/200/300', cost: 250000000},
     {id: '37', name: 'Build a private island resort', imageUrl: 'https://picsum.photos/id/336/200/300', cost: 400000000},
@@ -76,7 +76,7 @@ export async function getItems(): Promise<Item[]> {
     {id: '44', name: 'Meme NFT', imageUrl: 'https://picsum.photos/id/343/200/300', cost: 1000},
     {id: '45', name: 'Buy Twitter Blue', imageUrl: 'https://picsum.photos/id/344/200/300', cost: 8},
     {id: '46', name: 'Hire a llama for a day', imageUrl: 'https://picsum.photos/id/345/200/300', cost: 500},
-    {id: '47', name: 'Immortalize yourself as a statue', imageUrl: 'https://picsum.photos/id/346/200/300', cost: 300000},
+    {id: '47', name: 'Immortalize yourself as a statue', imageUrl: 'https://picsum.photos/id/353/200/300', cost: 300000},
     {id: '48', name: 'Rent a blimp saying “I’m rich!”', imageUrl: 'https://picsum.photos/id/347/200/300', cost: 150000},
     {id: '49', name: 'Coffee', imageUrl: 'https://picsum.photos/id/237/200/300', cost: 3000},
     {id: '50', name: 'Tesla', imageUrl: 'https://picsum.photos/id/238/200/300', cost: 10000000},
@@ -85,4 +85,5 @@ export async function getItems(): Promise<Item[]> {
     {id: '53', name: 'Space Shuttle', imageUrl: 'https://picsum.photos/id/241/200/300', cost: 400000000},
   ];
 }
+
 
